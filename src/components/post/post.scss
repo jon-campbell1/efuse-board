@@ -1,4 +1,79 @@
 .post-text {
+    margin-top: 15px;
     font-size: 12px;
     line-height: 18px;
+    color: rgba(18, 21, 29, 0.87);
+}
+
+.post-user-info {
+    display: flex;
+    align-items: center;
+
+    .post-username {
+        margin: 0;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .post-time {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: rgba(18, 21, 29, 0.6);
+    }
+}
+
+.post-stats {
+    display: flex;
+
+    .stat {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        margin-right: 13px;
+
+        img {
+            margin-right: 11px;
+        }
+
+        span {
+            font-size: 10px;
+            margin-left: 3px;
+            color: #12151D;
+            opacity: .6;
+            position: relative;
+            top: 1px;
+        }
+    }
+}
+
+.comment-input {
+    height: 40px;
+    width: 100%;
+    background: #F1F4F8;
+    border-radius: 100px;
+    border: 0;
+    font-size: 14px;
+    margin-top: 22px;
+    box-sizing: border-box;
+    padding: 0 48px;
+    color: rgba(18, 21, 29, 0.6);
+}
+
+.comment-icon {
+    position: absolute;
+    top: 33px;
+    left: 16px;
+}
+
+.add-comment-btn {
+    position: absolute;
+    top: 32px;
+    right: 22px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
 }
