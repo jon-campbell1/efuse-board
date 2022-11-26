@@ -3,9 +3,11 @@ import UserContextProvider from './contexts/UserContext';
 import './App.scss';
 
 function App() {
+  const fetchedPosts = localStorage.getItem('posts');
+
   return (
     <UserContextProvider>
-      <PostBoard/>
+      <PostBoard fetchedPosts={JSON.parse(fetchedPosts)}/>
     </UserContextProvider>
   );
 }

@@ -7,7 +7,7 @@ describe("Post", () => {
         post: {
             username: "test",
             body: "hello",
-            timeStamp: new Date(),
+            timeStamp: new Date().toString(),
             hypes: [{userId: "test"}],
             views: 2,
             shares: 3,

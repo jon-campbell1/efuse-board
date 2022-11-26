@@ -62,7 +62,7 @@ const Post = ({
                 hypes: [],
                 shares: 0,
                 replies: [],
-                timeStamp: new Date(),
+                timeStamp: new Date().toString(),
             }
 
             const updatedPost: PostProps = {
@@ -107,7 +107,7 @@ const Post = ({
                 <img alt="profile pic" src="/assets/profile_pic.png"/>
                 <div style={{marginLeft: 16}}>
                     <h3 className="post-username">{post.username}</h3>
-                    <span className="post-time">{timeAgo.format(post.timeStamp)}</span>
+                    <span className="post-time">{timeAgo.format(new Date(post.timeStamp))}</span>
                 </div>
             </div>
             <p className="post-text">

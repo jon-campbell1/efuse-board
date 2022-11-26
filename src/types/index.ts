@@ -1,7 +1,7 @@
 export interface PostProps {
     username: string;
     body: string;
-    timeStamp: Date,
+    timeStamp: string,
     hypes: Hype[],
     views: number,
     shares: number,
@@ -10,7 +10,7 @@ export interface PostProps {
 
 export interface CommentProps {
     username: string;
-    timeStamp: Date,
+    timeStamp: string,
     body: string;
     hypes: Hype[],
     shares: number,

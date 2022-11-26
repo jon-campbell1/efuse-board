@@ -7,7 +7,7 @@ describe("Comment", () => {
         comment: {
             username: "test",
             body: "hello",
-            timeStamp: new Date(),
+            timeStamp: new Date().toString(),
             hypes: [{userId: "test"}, {userId: "test123"}],
             shares: 3,
             replies: [],
