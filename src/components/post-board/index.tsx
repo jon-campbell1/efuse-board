@@ -47,6 +47,7 @@ const PostBoard = ({fetchedPosts}: { fetchedPosts: PostProps[] }) => {
 
     return (
         <div className="post-board-container">
+            <div style={{marginBottom: 30, fontFamily: 'Open Sans'}}>Applicant: <strong>Jonathan Campbell</strong></div>
             <PostCreator createPost={createPost}/>
             {
                 renderPosts()
