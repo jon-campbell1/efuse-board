@@ -4,7 +4,7 @@ import Post from '../post';
 import { UserContext } from '../../contexts/UserContext';
 import './post-board.scss';
 
-import {  PostProps} from '../../types';
+import { Hype, PostProps } from '../../types';
 
 const PostBoard = () => {
     const userContext = useContext(UserContext);
@@ -15,7 +15,7 @@ const PostBoard = () => {
             username: userContext.username,
             body,
             timeStamp: new Date(),
-            hypes: 0,
+            hypes: [],
             shares: 0,
             views: 0,
             comments: [],

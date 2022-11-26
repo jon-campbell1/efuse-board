@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './post.scss';
-import { Comment, PostProps } from '../../types'; 
+import { Comment, Hype, PostProps } from '../../types'; 
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
+import { UserContext } from '../../contexts/UserContext';
 
 TimeAgo.addDefaultLocale(en)
 
@@ -17,11 +18,22 @@ const Post = ({
 }) => {
     const timeAgo = new TimeAgo('en-US');
 
+    const { userId } = useContext(UserContext);
+
     const addHype = () => {
+        const currentHypes = post.hypes;
+
+        const hasHyped = currentHypes.find((hype: Hype) => hype.userId === userId)
+
+        const updatedHypes = hasHyped ? 
+            currentHypes.filter((hype: Hype) => hype.userId !== userId) :
+            [...currentHypes, { userId }]
+
         const updatedPost: PostProps = {
             ...post,
-            hypes: post.hypes + 1,
+            hypes: updatedHypes,
         }
+        
         updatePost(updatedPost, index);
     }
 
@@ -40,7 +52,7 @@ const Post = ({
             <div className="post-stats">
                 <span className="stat">
                     <img src="/assets/hype.png" onClick={addHype}/>
-                    {post.hypes} <span>Hypes</span>
+                    {post.hypes.length} <span>Hypes</span>
                 </span>
 
                 <span className="stat">
