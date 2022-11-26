@@ -56,7 +56,7 @@ const Comment = ({
     return (
         <div className="comment-container">
             <div className="post-user-info">
-                <img className="comment-profile-pic" src="/assets/profile_pic.png"/>
+                <img alt="profile-pic" className="comment-profile-pic" src="/assets/profile_pic.png"/>
                 <div style={{marginLeft: 16}}>
                     <h3 className="post-username">{comment.username}</h3>
                     <span className="post-time">{timeAgo.format(comment.timeStamp)}</span>

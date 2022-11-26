@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext';
+import React, { useState } from 'react';
 import './post-creator.scss'
 
 const PostCreator = ({
@@ -35,11 +34,11 @@ const PostCreator = ({
             <div className="post-creation-controls">
                 <div className="post-options">
                     <div className="post-option">
-                        <img src="assets/camera.png"/>
+                        <img src="assets/camera.png" alt="add media"/>
                         Add Media
                     </div>
                     <div className="post-option">
-                        <img src="assets/video.png"/>
+                        <img src="assets/video.png" alt="go live"/>
                         Go Live
                     </div>
                 </div>

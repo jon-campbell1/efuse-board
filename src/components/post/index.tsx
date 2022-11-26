@@ -104,7 +104,7 @@ const Post = ({
                 <MenuIcon/>
             </div>
             <div className="post-user-info">
-                <img src="/assets/profile_pic.png"/>
+                <img alt="profile pic" src="/assets/profile_pic.png"/>
                 <div style={{marginLeft: 16}}>
                     <h3 className="post-username">{post.username}</h3>
                     <span className="post-time">{timeAgo.format(post.timeStamp)}</span>
@@ -148,7 +148,7 @@ const Post = ({
                 </span>
             </div>
             <div style={{position: 'relative'}}>
-                <img src="/assets/comment_large.png" className="comment-icon"/>
+                <img alt="comment icon" src="/assets/comment_large.png" className="comment-icon"/>
                 <input 
                     type="text" 
                     placeholder="Add Comment" 
@@ -158,8 +158,8 @@ const Post = ({
                     onKeyDown={(e) => e.key === 'Enter' && commentText.trim() && addComment()}
                     onClick={addComment}
                 />
-                <button className="add-comment-btn">
-                    <img src="/assets/add_comment.png"/>
+                <button className="add-comment-btn" onClick={addComment}>
+                    <img alt="add comment" src="/assets/add_comment.png"/>
                 </button>
             </div>
             {
