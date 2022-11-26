@@ -1,4 +1,5 @@
 .post-creation-input {
+    font-family: Poppins;
     width: 100%;
     padding: 8px;
     border: 1px solid #CED7E7;
@@ -8,6 +9,7 @@
 }
 
 .post-creation-controls {
+    font-family: Poppins;
     margin-top: 25px;
     display: flex;
     align-items: center;
@@ -30,6 +32,7 @@
     }
 
     input[type="button"] {
+        font-family: Poppins;
         height: 40px;
         width: 80px;
         color: #FFF;

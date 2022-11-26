@@ -19,12 +19,13 @@ const Post = ({
     index: number,
     updatePost: (post: PostProps, index: number) => void
 }) => {
+    const {body, hypes, comments, shares, views} = post;
     const timeAgo = new TimeAgo('en-US');
     const [commentText, setCommentText] = useState('');
     const { userId, username } = useContext(UserContext);
 
     const addHype = () => {
-        const currentHypes = post.hypes;
+        const currentHypes = hypes;
 
         const hasHyped = currentHypes.find((hype: Hype) => hype.userId === userId)
 
@@ -53,7 +54,7 @@ const Post = ({
 
             const updatedPost: PostProps = {
                 ...post,
-               comments: [...post.comments, newComment],
+               comments: [...comments, newComment],
             }
             
             setCommentText('');
@@ -62,7 +63,7 @@ const Post = ({
     }
 
     const updateComment = (comment: CommentProps, commentIndex: number) => {
-        const currentComments = post.comments;
+        const currentComments = comments;
         currentComments[commentIndex]= comment;
         const updatedPost: PostProps = {
             ...post,
@@ -82,6 +83,8 @@ const Post = ({
             />
         )
 
+    const hasHyped = hypes.find((hype: Hype) => hype.userId === userId)
+
     return (
         <div className="post-container" style={{padding: 30}}>
             <div className="post-user-info">
@@ -92,26 +95,34 @@ const Post = ({
                 </div>
             </div>
             <p className="post-text">
-                {post.body}
+                {body}
             </p>
             <div className="post-stats">
                 <span className="stat">
                     <img src="/assets/hype.png" onClick={addHype}/>
-                    {post.hypes.length} <span>Hypes</span>
+                    <span className="stat-number" style={{color: hasHyped ? '#f56b30' : '#12151D'}}>
+                        {hypes.length} 
+                    </span>
+                    <span className="stat-type">Hypes</span>
                 </span>
 
                 <span className="stat">
                     <img src="/assets/comment.png"/>
-                    {post.comments.length} <span>Comment</span>
+                    <span className="stat-number">
+                        {comments.length}
+                    </span> 
+                    <span className="stat-type">Comment</span>
                 </span>
 
                 <span className="stat">
                     <img src="/assets/shares.png"/>
-                    {post.shares} <span>Shares</span>
+                    <span className="stat-number">{shares}</span> 
+                    <span className="stat-type">Shares</span>
                 </span>
 
                 <span className="stat">
-                    {post.views} <span>Views</span>
+                    <span className="stat-number">{views}</span> 
+                    <span className="stat-type">Views</span>
                 </span>
             </div>
             <div style={{position: 'relative'}}>

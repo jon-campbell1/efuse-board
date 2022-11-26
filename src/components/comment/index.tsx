@@ -18,11 +18,12 @@ const Comment = ({
     commentIndex: number,
     updateComment: (comment: CommentProps, commentIndex: number) => void,
 }) => {
+    const { hypes } = comment;
     const timeAgo = new TimeAgo('en-US');
     const { userId } = useContext(UserContext);
 
     const addHype = () => {
-        const currentHypes = comment.hypes;
+        const currentHypes = hypes;
 
         const hasHyped = currentHypes.find((hype: Hype) => hype.userId === userId)
 
@@ -37,6 +38,8 @@ const Comment = ({
 
         updateComment(updatedComment, commentIndex);
     }
+
+    const hasHyped = hypes.find((hype: Hype) => hype.userId === userId)
 
     return (
         <div className="comment-container">
@@ -53,17 +56,20 @@ const Comment = ({
             <div className="post-stats">
                 <span className="stat">
                     <img src="/assets/hype.png" onClick={addHype}/>
-                    {comment.hypes.length} <span>Hypes</span>
+                    <span className="stat-number" style={{color: hasHyped ? '#f56b30' : '#12151D'}}>{comment.hypes.length}</span> 
+                    <span className="stat-type">Hypes</span>
                 </span>
 
                 <span className="stat">
                     <img src="/assets/comment.png"/>
-                    {comment.replies.length} <span>Replies</span>
+                    <span className="stat-number">{comment.replies.length}</span> 
+                    <span className="stat-type">Replies</span>
                 </span>
 
                 <span className="stat">
                     <img src="/assets/shares.png"/>
-                    {comment.shares} <span>Shares</span>
+                    <span className="stat-number">{comment.shares}</span> 
+                    <span className="stat-type">Shares</span>
                 </span>
             </div>
         </div>
