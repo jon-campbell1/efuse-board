@@ -17,7 +17,7 @@ const Comment = ({
     commentIndex: number,
     updateComment: (comment: CommentProps, commentIndex: number) => void,
 }) => {
-    const { body, hypes, shares, replies } = comment;
+    const { body, hypes, shares, replies, timeStamp } = comment;
     const { userId } = useContext(UserContext);
 
     const addHype = (hasHyped: boolean) => {
@@ -37,7 +37,7 @@ const Comment = ({
 
     return (
         <div className="comment-container">
-            <ContentHeader username={comment.username} timeStamp={comment.timeStamp} type="comment"/>
+            <ContentHeader username={comment.username} timeStamp={timeStamp} type="comment"/>
             <ContentWithStats content={{body, hypes, shares, replies}} addHype={addHype}/>
         </div>
     );

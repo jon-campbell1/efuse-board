@@ -18,7 +18,7 @@ const Post = ({
     index: number,
     updatePost: (post: PostProps, index: number) => void
 }) => {
-    const { body, hypes, comments, views, shares } = post;
+    const { body, hypes, comments, views, shares, timeStamp } = post;
     const [commentText, setCommentText] = useState('');
     const { userId, username } = useContext(UserContext);
 
@@ -84,7 +84,7 @@ const Post = ({
             <div className="menu-icon">
                 <MenuIcon/>
             </div>
-            <ContentHeader username={post.username} timeStamp={post.timeStamp} type='post'/>
+            <ContentHeader username={post.username} timeStamp={timeStamp} type='post'/>
             <ContentWithStats content={{body, hypes, views, comments, shares}} addHype={addHype}/>
             <div style={{position: 'relative'}}>
                 <img alt="comment icon" src="/assets/comment_large.png" className="comment-icon"/>
