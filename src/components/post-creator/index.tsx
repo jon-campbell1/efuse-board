@@ -26,7 +26,7 @@ const PostCreator = ({
                     setPostText(e.target.value)
                 }} 
                 onKeyDown={(e) => {
-                    e.key === 'Enter' && submitPost()
+                    e.key === 'Enter' && postText.trim() && submitPost()
                 }}
                 className="post-creation-input" 
                 placeholder="What's on your mind?"

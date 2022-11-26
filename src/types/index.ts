@@ -1,12 +1,3 @@
-export interface Comment {
-    body: string;
-}
-
-
-export interface Hype {
-    userId: string,
-}
-
 export interface PostProps {
     username: string;
     body: string;
@@ -14,5 +5,19 @@ export interface PostProps {
     hypes: Hype[],
     views: number,
     shares: number,
-    comments: Comment[],
+    comments: CommentProps[],
 };
+
+export interface CommentProps {
+    username: string;
+    timeStamp: Date,
+    body: string;
+    hypes: Hype[],
+    shares: number,
+    replies: any[],
+}
+
+export interface Hype {
+    userId: string,
+}
+

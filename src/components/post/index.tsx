@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
-import './post.scss';
-import { Comment, Hype, PostProps } from '../../types'; 
-import TimeAgo from 'javascript-time-ago';
+import React, { useContext, useState } from 'react';
 import en from 'javascript-time-ago/locale/en';
-import { UserContext } from '../../contexts/UserContext';
+import TimeAgo from 'javascript-time-ago';
 
-TimeAgo.addDefaultLocale(en)
+import { CommentProps, Hype, PostProps } from '../../types'; 
+import { UserContext } from '../../contexts/UserContext';
+import Comment from '../comment';
+
+import './post.scss';
+
+TimeAgo.addDefaultLocale(en);
 
 const Post = ({
     post, 
@@ -17,8 +20,8 @@ const Post = ({
     updatePost: (post: PostProps, index: number) => void
 }) => {
     const timeAgo = new TimeAgo('en-US');
-
-    const { userId } = useContext(UserContext);
+    const [commentText, setCommentText] = useState('');
+    const { userId, username } = useContext(UserContext);
 
     const addHype = () => {
         const currentHypes = post.hypes;
@@ -33,9 +36,51 @@ const Post = ({
             ...post,
             hypes: updatedHypes,
         }
-        
+
         updatePost(updatedPost, index);
     }
+
+    const addComment = () => {
+        if (commentText.trim()) {
+            const newComment: CommentProps = {
+                username,
+                body: commentText,
+                hypes: [],
+                shares: 0,
+                replies: [],
+                timeStamp: new Date(),
+            }
+
+            const updatedPost: PostProps = {
+                ...post,
+               comments: [...post.comments, newComment],
+            }
+            
+            setCommentText('');
+            updatePost(updatedPost, index);
+        }
+    }
+
+    const updateComment = (comment: CommentProps, commentIndex: number) => {
+        const currentComments = post.comments;
+        currentComments[commentIndex]= comment;
+        const updatedPost: PostProps = {
+            ...post,
+           comments: currentComments,
+        }
+
+        updatePost(updatedPost, index);
+    }
+
+    const renderComments = () => 
+        post.comments.map((comment: CommentProps, commentIndex: number) => 
+            <Comment 
+                key={`comment${index}-${commentIndex}`} 
+                commentIndex={commentIndex} 
+                comment={comment}
+                updateComment={updateComment}
+            />
+        )
 
     return (
         <div className="post-container" style={{padding: 30}}>
@@ -71,11 +116,22 @@ const Post = ({
             </div>
             <div style={{position: 'relative'}}>
                 <img src="/assets/comment_large.png" className="comment-icon"/>
-                <input type="text" placeholder="Add Comment" className="comment-input"/>
+                <input 
+                    type="text" 
+                    placeholder="Add Comment" 
+                    value={commentText} 
+                    className="comment-input" 
+                    onChange={(e) => setCommentText(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && commentText.trim() && addComment()}
+                    onClick={addComment}
+                />
                 <button className="add-comment-btn">
                     <img src="/assets/add_comment.png"/>
                 </button>
             </div>
+            {
+                renderComments()
+            }
         </div>
     )
 }

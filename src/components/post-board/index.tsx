@@ -4,7 +4,7 @@ import Post from '../post';
 import { UserContext } from '../../contexts/UserContext';
 import './post-board.scss';
 
-import { Hype, PostProps } from '../../types';
+import { PostProps } from '../../types';
 
 const PostBoard = () => {
     const userContext = useContext(UserContext);
