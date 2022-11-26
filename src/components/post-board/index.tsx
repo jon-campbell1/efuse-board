@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import PostCreator from '../post-creator';
 import Post from '../post';
 import { UserContext } from '../../contexts/UserContext';
