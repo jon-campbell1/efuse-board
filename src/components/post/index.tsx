@@ -4,10 +4,8 @@ import TimeAgo from 'javascript-time-ago';
 
 import { CommentProps, Hype, PostProps } from '../../types'; 
 import { UserContext } from '../../contexts/UserContext';
+import PostContent from '../post-content';
 import Comment from '../comment';
-import HypeIcon from '../svgs/hype';
-import CommentIcon from '../svgs/comment';
-import ShareIcon from '../svgs/share';
 import MenuIcon from '../svgs/menu';
 
 import './post.scss';
@@ -23,20 +21,13 @@ const Post = ({
     index: number,
     updatePost: (post: PostProps, index: number) => void
 }) => {
-    const {body, hypes, comments, shares, views} = post;
+    const { hypes, comments } = post;
     const timeAgo = new TimeAgo('en-US');
     const [commentText, setCommentText] = useState('');
-    const [hypeClicked, setHypeClicked] = useState(false);
     const { userId, username } = useContext(UserContext);
 
-    const addHype = () => {
+    const addHype = (hasHyped: boolean) => {
         const currentHypes = hypes;
-
-        const hasHyped = currentHypes.find((hype: Hype) => hype.userId === userId)
-
-        if (!hasHyped) {
-            setHypeClicked(true);
-        }
 
         const updatedHypes = hasHyped ? 
             currentHypes.filter((hype: Hype) => hype.userId !== userId) :
@@ -48,10 +39,6 @@ const Post = ({
         }
 
         updatePost(updatedPost, index);
-
-        setTimeout(() => {
-            setHypeClicked(false);
-        }, 1000);
     }
 
     const addComment = () => {
@@ -96,57 +83,19 @@ const Post = ({
             />
         )
 
-    const hasHyped = !!hypes.find((hype: Hype) => hype.userId === userId)
-
     return (
         <div className="post-container">
             <div className="menu-icon">
                 <MenuIcon/>
             </div>
             <div className="post-user-info">
-                <img alt="profile pic" src="/assets/profile_pic.png"/>
+                <img alt="profile pic" className="post-profile-pic" src="/assets/profile_pic.png"/>
                 <div style={{marginLeft: 16}}>
                     <h3 className="post-username">{post.username}</h3>
                     <span className="post-time">{timeAgo.format(new Date(post.timeStamp))}</span>
                 </div>
             </div>
-            <p className="post-text">
-                {body}
-            </p>
-            <div className="post-stats">
-                <span className="stat">
-                    <div className="stat-icon">
-                        <HypeIcon clicked={hypeClicked} active={hasHyped} onClick={addHype}/>
-                    </div>
-                    <span className="stat-number" style={{color: hasHyped ? '#f56b30' : '#12151D'}}>
-                        {hypes.length} 
-                    </span>
-                    <span className="stat-type">Hypes</span>
-                </span>
-
-                <span className="stat">
-                    <div className="stat-icon">
-                        <CommentIcon/>
-                    </div>
-                    <span className="stat-number">
-                        {comments.length}
-                    </span> 
-                    <span className="stat-type">Comment</span>
-                </span>
-
-                <span className="stat">
-                    <div className="stat-icon">
-                        <ShareIcon/>
-                    </div>
-                    <span className="stat-number">{shares}</span> 
-                    <span className="stat-type">Shares</span>
-                </span>
-
-                <span className="stat">
-                    <span className="stat-number">{views}</span> 
-                    <span className="stat-type">Views</span>
-                </span>
-            </div>
+            <PostContent content={post} addHype={addHype}/>
             <div style={{position: 'relative'}}>
                 <img alt="comment icon" src="/assets/comment_large.png" className="comment-icon"/>
                 <input 

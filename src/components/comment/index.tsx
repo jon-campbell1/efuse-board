@@ -7,6 +7,7 @@ import { CommentProps, Hype } from '../../types';
 import HypeIcon from '../svgs/hype';
 import CommentIcon from '../svgs/comment';
 import ShareIcon from '../svgs/share';
+import PostContent from '../post-content';
 
 import './comment.scss';
 
@@ -26,14 +27,8 @@ const Comment = ({
     const timeAgo = new TimeAgo('en-US');
     const { userId } = useContext(UserContext);
 
-    const addHype = () => {
+    const addHype = (hasHyped: boolean) => {
         const currentHypes = hypes;
-
-        const hasHyped = currentHypes.find((hype: Hype) => hype.userId === userId)
-
-        if (!hasHyped) {
-            setHypeClicked(true);
-        }
 
         const updatedHypes = hasHyped ? 
             currentHypes.filter((hype: Hype) => hype.userId !== userId) :
@@ -45,51 +40,18 @@ const Comment = ({
         }
 
         updateComment(updatedComment, commentIndex);
-
-        setTimeout(() => {
-            setHypeClicked(false);
-        }, 1000);
     }
-
-    const hasHyped = !!hypes.find((hype: Hype) => hype.userId === userId)
 
     return (
         <div className="comment-container">
             <div className="post-user-info">
-                <img alt="profile-pic" className="comment-profile-pic" src="/assets/profile_pic.png"/>
+                <img alt="profile pic" className="comment-profile-pic" src="/assets/profile_pic.png"/>
                 <div style={{marginLeft: 16}}>
                     <h3 className="post-username">{comment.username}</h3>
                     <span className="post-time">{timeAgo.format(new Date(comment.timeStamp))}</span>
                 </div>
             </div>
-            <p className="post-text">
-                {comment.body}
-            </p>
-            <div className="post-stats">
-                <span className="stat">
-                    <div className="stat-icon">
-                        <HypeIcon active={hasHyped} clicked={hypeClicked} onClick={addHype}/>
-                    </div>
-                    <span className="stat-number" style={{color: hasHyped ? '#f56b30' : '#12151D'}}>{comment.hypes.length}</span> 
-                    <span className="stat-type">Hypes</span>
-                </span>
-
-                <span className="stat">
-                    <div className="stat-icon">
-                        <CommentIcon/>
-                    </div>
-                    <span className="stat-number">{comment.replies.length}</span> 
-                    <span className="stat-type">Replies</span>
-                </span>
-
-                <span className="stat">
-                    <div className="stat-icon">
-                        <ShareIcon/>
-                    </div>
-                    <span className="stat-number">{comment.shares}</span> 
-                    <span className="stat-type">Shares</span>
-                </span>
-            </div>
+            <PostContent content={comment} addHype={addHype}/>
         </div>
     );
 }
