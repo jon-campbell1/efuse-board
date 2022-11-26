@@ -4,8 +4,9 @@ import TimeAgo from 'javascript-time-ago';
 
 import { CommentProps, Hype, PostProps } from '../../types'; 
 import { UserContext } from '../../contexts/UserContext';
-import HypeIcon from '../svgs/hype';
 import Comment from '../comment';
+import HypeIcon from '../svgs/hype';
+import MenuIcon from '../svgs/menu';
 
 import './post.scss';
 
@@ -88,6 +89,9 @@ const Post = ({
 
     return (
         <div className="post-container">
+            <div className="menu-icon">
+                <MenuIcon/>
+            </div>
             <div className="post-user-info">
                 <img src="/assets/profile_pic.png"/>
                 <div style={{marginLeft: 16}}>
