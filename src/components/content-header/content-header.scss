@@ -1,0 +1,30 @@
+.content-user-info {
+    display: flex;
+    align-items: center;
+
+    .post-profile-pic {
+        width: 60px;
+        height: 60px;
+    }
+
+    .comment-profile-pic {
+        height: 40px;
+        width: 40px;
+    }
+
+    .content-username {
+        margin: 0;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 24px;
+        font-family: Poppins;
+    }
+
+    .content-time {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: rgba(18, 21, 29, 0.6);
+        font-family: Open Sans;
+    }
+}

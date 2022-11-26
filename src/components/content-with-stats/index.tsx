@@ -5,6 +5,8 @@ import HypeIcon from '../svgs/hype';
 import CommentIcon from '../svgs/comment';
 import ShareIcon from '../svgs/share';
 
+import './content-with-stats.scss';
+
 const ContentWithStats = ({
     content, 
     addHype
@@ -86,7 +88,7 @@ const ContentWithStats = ({
                 </span>
 
                 {
-                    views && (
+                    views !== undefined && (
                         <span className="stat">
                             <span className="stat-number">{views}</span> 
                             <span className="stat-type">Views</span>
