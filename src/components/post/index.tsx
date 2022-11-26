@@ -17,12 +17,20 @@ const Post = ({
 }) => {
     const timeAgo = new TimeAgo('en-US');
 
+    const addHype = () => {
+        const updatedPost: PostProps = {
+            ...post,
+            hypes: post.hypes + 1,
+        }
+        updatePost(updatedPost, index);
+    }
+
     return (
         <div className="post-container" style={{padding: 30}}>
             <div className="post-user-info">
                 <img src="/assets/profile_pic.png"/>
                 <div style={{marginLeft: 16}}>
-                    <h3 className="post-username">Nickmercss</h3>
+                    <h3 className="post-username">{post.username}</h3>
                     <span className="post-time">{timeAgo.format(post.timeStamp)}</span>
                 </div>
             </div>
@@ -31,7 +39,7 @@ const Post = ({
             </p>
             <div className="post-stats">
                 <span className="stat">
-                    <img src="/assets/hype.png"/>
+                    <img src="/assets/hype.png" onClick={addHype}/>
                     {post.hypes} <span>Hypes</span>
                 </span>
 

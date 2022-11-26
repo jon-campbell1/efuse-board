@@ -1,9 +1,12 @@
 import PostBoard from "./components/post-board";
+import UserContextProvider from './contexts/UserContext';
 import './App.scss';
 
 function App() {
   return (
-    <PostBoard/>
+    <UserContextProvider>
+      <PostBoard/>
+    </UserContextProvider>
   );
 }
 

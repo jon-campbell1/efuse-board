@@ -3,6 +3,7 @@ export interface Comment {
 }
 
 export interface PostProps {
+    username: string;
     body: string;
     timeStamp: Date,
     hypes: number,

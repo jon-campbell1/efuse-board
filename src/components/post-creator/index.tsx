@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import './post-creator.scss'
 
 const PostCreator = ({
@@ -21,7 +22,12 @@ const PostCreator = ({
             <input 
                 type="text" 
                 value={postText} 
-                onChange={(e) => setPostText(e.target.value)} 
+                onChange={(e: any) => {
+                    setPostText(e.target.value)
+                }} 
+                onKeyDown={(e) => {
+                    e.key === 'Enter' && submitPost()
+                }}
                 className="post-creation-input" 
                 placeholder="What's on your mind?"
             />
