@@ -6,6 +6,8 @@ import { CommentProps, Hype, PostProps } from '../../types';
 import { UserContext } from '../../contexts/UserContext';
 import Comment from '../comment';
 import HypeIcon from '../svgs/hype';
+import CommentIcon from '../svgs/comment';
+import ShareIcon from '../svgs/share';
 import MenuIcon from '../svgs/menu';
 
 import './post.scss';
@@ -24,12 +26,17 @@ const Post = ({
     const {body, hypes, comments, shares, views} = post;
     const timeAgo = new TimeAgo('en-US');
     const [commentText, setCommentText] = useState('');
+    const [hypeClicked, setHypeClicked] = useState(false);
     const { userId, username } = useContext(UserContext);
 
     const addHype = () => {
         const currentHypes = hypes;
 
         const hasHyped = currentHypes.find((hype: Hype) => hype.userId === userId)
+
+        if (!hasHyped) {
+            setHypeClicked(true);
+        }
 
         const updatedHypes = hasHyped ? 
             currentHypes.filter((hype: Hype) => hype.userId !== userId) :
@@ -41,6 +48,10 @@ const Post = ({
         }
 
         updatePost(updatedPost, index);
+
+        setTimeout(() => {
+            setHypeClicked(false);
+        }, 1000);
     }
 
     const addComment = () => {
@@ -104,7 +115,9 @@ const Post = ({
             </p>
             <div className="post-stats">
                 <span className="stat">
-                    <HypeIcon active={hasHyped} onClick={addHype}/>
+                    <div className="stat-icon">
+                        <HypeIcon clicked={hypeClicked} active={hasHyped} onClick={addHype}/>
+                    </div>
                     <span className="stat-number" style={{color: hasHyped ? '#f56b30' : '#12151D'}}>
                         {hypes.length} 
                     </span>
@@ -112,7 +125,9 @@ const Post = ({
                 </span>
 
                 <span className="stat">
-                    <img src="/assets/comment.png"/>
+                    <div className="stat-icon">
+                        <CommentIcon/>
+                    </div>
                     <span className="stat-number">
                         {comments.length}
                     </span> 
@@ -120,7 +135,9 @@ const Post = ({
                 </span>
 
                 <span className="stat">
-                    <img src="/assets/shares.png"/>
+                    <div className="stat-icon">
+                        <ShareIcon/>
+                    </div>
                     <span className="stat-number">{shares}</span> 
                     <span className="stat-type">Shares</span>
                 </span>

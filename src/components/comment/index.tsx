@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import en from 'javascript-time-ago/locale/en';
 import TimeAgo from 'javascript-time-ago';
 
 import { UserContext } from '../../contexts/UserContext';
 import { CommentProps, Hype } from '../../types'; 
 import HypeIcon from '../svgs/hype';
+import CommentIcon from '../svgs/comment';
+import ShareIcon from '../svgs/share';
 
 import './comment.scss';
 
@@ -20,6 +22,7 @@ const Comment = ({
     updateComment: (comment: CommentProps, commentIndex: number) => void,
 }) => {
     const { hypes } = comment;
+    const [hypeClicked, setHypeClicked] = useState(false);
     const timeAgo = new TimeAgo('en-US');
     const { userId } = useContext(UserContext);
 
@@ -27,6 +30,10 @@ const Comment = ({
         const currentHypes = hypes;
 
         const hasHyped = currentHypes.find((hype: Hype) => hype.userId === userId)
+
+        if (!hasHyped) {
+            setHypeClicked(true);
+        }
 
         const updatedHypes = hasHyped ? 
             currentHypes.filter((hype: Hype) => hype.userId !== userId) :
@@ -38,6 +45,10 @@ const Comment = ({
         }
 
         updateComment(updatedComment, commentIndex);
+
+        setTimeout(() => {
+            setHypeClicked(false);
+        }, 1000);
     }
 
     const hasHyped = !!hypes.find((hype: Hype) => hype.userId === userId)
@@ -56,19 +67,25 @@ const Comment = ({
             </p>
             <div className="post-stats">
                 <span className="stat">
-                    <HypeIcon active={hasHyped} onClick={addHype}/>
+                    <div className="stat-icon">
+                        <HypeIcon active={hasHyped} clicked={hypeClicked} onClick={addHype}/>
+                    </div>
                     <span className="stat-number" style={{color: hasHyped ? '#f56b30' : '#12151D'}}>{comment.hypes.length}</span> 
                     <span className="stat-type">Hypes</span>
                 </span>
 
                 <span className="stat">
-                    <img src="/assets/comment.png"/>
+                    <div className="stat-icon">
+                        <CommentIcon/>
+                    </div>
                     <span className="stat-number">{comment.replies.length}</span> 
                     <span className="stat-type">Replies</span>
                 </span>
 
                 <span className="stat">
-                    <img src="/assets/shares.png"/>
+                    <div className="stat-icon">
+                        <ShareIcon/>
+                    </div>
                     <span className="stat-number">{comment.shares}</span> 
                     <span className="stat-type">Shares</span>
                 </span>

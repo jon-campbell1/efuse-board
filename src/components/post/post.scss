@@ -51,10 +51,24 @@
             display: flex;
             align-items: center;
             margin-right: 13px;
+            position: relative;
     
-            img, svg {
+            img {
                 margin-right: 8px;
                 cursor: pointer;
+            }
+
+            .stat-icon {
+                margin-right: 8px;
+                width: 16px;
+                height: 16px;
+            }
+
+            svg {
+                cursor: pointer;
+                position: absolute;
+                top: 0;
+                left: 0;
             }
     
             .stat-number {
