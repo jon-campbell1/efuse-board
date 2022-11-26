@@ -18,7 +18,7 @@ const PostCreator = ({
     }
 
     return (
-        <div className="post-container">
+        <div className="post-creation-container">
             <input 
                 type="text" 
                 value={postText} 

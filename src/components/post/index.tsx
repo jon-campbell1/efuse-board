@@ -4,6 +4,7 @@ import TimeAgo from 'javascript-time-ago';
 
 import { CommentProps, Hype, PostProps } from '../../types'; 
 import { UserContext } from '../../contexts/UserContext';
+import HypeIcon from '../svgs/hype';
 import Comment from '../comment';
 
 import './post.scss';
@@ -83,10 +84,10 @@ const Post = ({
             />
         )
 
-    const hasHyped = hypes.find((hype: Hype) => hype.userId === userId)
+    const hasHyped = !!hypes.find((hype: Hype) => hype.userId === userId)
 
     return (
-        <div className="post-container" style={{padding: 30}}>
+        <div className="post-container">
             <div className="post-user-info">
                 <img src="/assets/profile_pic.png"/>
                 <div style={{marginLeft: 16}}>
@@ -99,7 +100,7 @@ const Post = ({
             </p>
             <div className="post-stats">
                 <span className="stat">
-                    <img src="/assets/hype.png" onClick={addHype}/>
+                    <HypeIcon active={hasHyped} onClick={addHype}/>
                     <span className="stat-number" style={{color: hasHyped ? '#f56b30' : '#12151D'}}>
                         {hypes.length} 
                     </span>

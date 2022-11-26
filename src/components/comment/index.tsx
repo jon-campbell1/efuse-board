@@ -3,7 +3,8 @@ import en from 'javascript-time-ago/locale/en';
 import TimeAgo from 'javascript-time-ago';
 
 import { UserContext } from '../../contexts/UserContext';
-import { CommentProps, Hype, PostProps } from '../../types'; 
+import { CommentProps, Hype } from '../../types'; 
+import HypeIcon from '../svgs/hype';
 
 import './comment.scss';
 
@@ -39,7 +40,7 @@ const Comment = ({
         updateComment(updatedComment, commentIndex);
     }
 
-    const hasHyped = hypes.find((hype: Hype) => hype.userId === userId)
+    const hasHyped = !!hypes.find((hype: Hype) => hype.userId === userId)
 
     return (
         <div className="comment-container">
@@ -55,7 +56,7 @@ const Comment = ({
             </p>
             <div className="post-stats">
                 <span className="stat">
-                    <img src="/assets/hype.png" onClick={addHype}/>
+                    <HypeIcon active={hasHyped} onClick={addHype}/>
                     <span className="stat-number" style={{color: hasHyped ? '#f56b30' : '#12151D'}}>{comment.hypes.length}</span> 
                     <span className="stat-type">Hypes</span>
                 </span>
