@@ -1,18 +1,29 @@
 import React from 'react';
 import './post.scss';
+import { Comment, PostProps } from '../../types'; 
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
 
-interface PostProps {
-    body: string;
-}
+TimeAgo.addDefaultLocale(en)
 
-const Post = ({post}: {post: PostProps}) => {
+const Post = ({
+    post, 
+    index,
+    updatePost
+}: {
+    post: PostProps
+    index: number,
+    updatePost: (post: PostProps, index: number) => void
+}) => {
+    const timeAgo = new TimeAgo('en-US');
+
     return (
         <div className="post-container" style={{padding: 30}}>
             <div className="post-user-info">
                 <img src="/assets/profile_pic.png"/>
                 <div style={{marginLeft: 16}}>
                     <h3 className="post-username">Nickmercss</h3>
-                    <span className="post-time">2 Minutes Ago</span>
+                    <span className="post-time">{timeAgo.format(post.timeStamp)}</span>
                 </div>
             </div>
             <p className="post-text">
@@ -21,21 +32,21 @@ const Post = ({post}: {post: PostProps}) => {
             <div className="post-stats">
                 <span className="stat">
                     <img src="/assets/hype.png"/>
-                    100 <span>Hypes</span>
+                    {post.hypes} <span>Hypes</span>
                 </span>
 
                 <span className="stat">
                     <img src="/assets/comment.png"/>
-                    100 <span>Comment</span>
+                    {post.comments.length} <span>Comment</span>
                 </span>
 
                 <span className="stat">
                     <img src="/assets/shares.png"/>
-                    100 <span>Shares</span>
+                    {post.shares} <span>Shares</span>
                 </span>
 
                 <span className="stat">
-                    100 <span>Views</span>
+                    {post.views} <span>Views</span>
                 </span>
             </div>
             <div style={{position: 'relative'}}>
