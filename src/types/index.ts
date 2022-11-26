@@ -17,6 +17,15 @@ export interface CommentProps {
     replies: any[],
 }
 
+export interface Content {
+    body: string;
+    hypes: Hype[],
+    shares: number,
+    views?: number,
+    comments?: CommentProps[],
+    replies?: any[],
+}
+
 export interface Hype {
     userId: string,
 }

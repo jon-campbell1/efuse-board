@@ -1,22 +1,25 @@
-import React, {useContext, useState} from 'react';
-import { Hype } from '../../types';
+import React, {useContext, useEffect, useState} from 'react';
+import { Hype, Content } from '../../types';
 import { UserContext } from '../../contexts/UserContext';
 import HypeIcon from '../svgs/hype';
 import CommentIcon from '../svgs/comment';
 import ShareIcon from '../svgs/share';
 
-const PostContent = ({
+const ContentWithStats = ({
     content, 
     addHype
 }: {
-    content: any,
+    content: Content,
     addHype: (hasHyped: boolean) => void,
 }) => {
     const {body, hypes, comments, views, shares, replies } = content;
     const { userId } = useContext(UserContext);
     const [hypeClicked, setHypeClicked] = useState(false);
+    const [hasHyped, setHasHyped] = useState(false);
 
-    const hasHyped = !!hypes.find((hype: Hype) => hype.userId === userId);
+    useEffect(() => {
+        setHasHyped(!!hypes.find((hype: Hype) => hype.userId === userId));
+    }, [hypes])
 
     const hypeAction = () => {
         if (!hasHyped) {
@@ -95,4 +98,4 @@ const PostContent = ({
     );
 }
 
-export default PostContent;
+export default ContentWithStats;

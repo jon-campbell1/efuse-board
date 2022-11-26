@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 const HypeIcon = ({ active, clicked, onClick }: {active: boolean, clicked: boolean, onClick: () => void}) => {
+    const activeState = active ? 'active' : 'inactive';
+    const [state, setState] = useState(activeState);
 
-    const [state, setState] = useState(active ? 'active' : 'inactive');
+    useEffect(() => {
+        setState(activeState);
+    }, [active])
 
     const currentState = () => {
         if (clicked) {

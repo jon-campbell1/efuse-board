@@ -1,16 +1,13 @@
 import React, { useContext, useState } from 'react';
-import en from 'javascript-time-ago/locale/en';
-import TimeAgo from 'javascript-time-ago';
 
 import { CommentProps, Hype, PostProps } from '../../types'; 
 import { UserContext } from '../../contexts/UserContext';
-import PostContent from '../post-content';
+import ContentWithStats from '../content-with-stats';
+import ContentHeader from '../content-header';
 import Comment from '../comment';
 import MenuIcon from '../svgs/menu';
 
 import './post.scss';
-
-TimeAgo.addDefaultLocale(en);
 
 const Post = ({
     post, 
@@ -21,8 +18,7 @@ const Post = ({
     index: number,
     updatePost: (post: PostProps, index: number) => void
 }) => {
-    const { hypes, comments } = post;
-    const timeAgo = new TimeAgo('en-US');
+    const { body, hypes, comments, views, shares } = post;
     const [commentText, setCommentText] = useState('');
     const { userId, username } = useContext(UserContext);
 
@@ -88,14 +84,8 @@ const Post = ({
             <div className="menu-icon">
                 <MenuIcon/>
             </div>
-            <div className="post-user-info">
-                <img alt="profile pic" className="post-profile-pic" src="/assets/profile_pic.png"/>
-                <div style={{marginLeft: 16}}>
-                    <h3 className="post-username">{post.username}</h3>
-                    <span className="post-time">{timeAgo.format(new Date(post.timeStamp))}</span>
-                </div>
-            </div>
-            <PostContent content={post} addHype={addHype}/>
+            <ContentHeader username={post.username} timeStamp={post.timeStamp} type='post'/>
+            <ContentWithStats content={{body, hypes, views, comments, shares}} addHype={addHype}/>
             <div style={{position: 'relative'}}>
                 <img alt="comment icon" src="/assets/comment_large.png" className="comment-icon"/>
                 <input 
